@@ -19,7 +19,15 @@ class App extends React.Component<IAppProps, IAppState> {
 
                 <Form onFetchHandler={(pck: Package) => this.setState({pck})}/>
 
-                {this.state.pck && <Tree pck={this.state.pck}/>}
+                {this.state.pck && (
+                    <ul>
+                        <li>
+                            {this.state.pck.name}: {this.state.pck.version}
+
+                            {this.state.pck.dependencies && <Tree pck={this.state.pck} />}
+                        </li>
+                    </ul>
+                )}
             </main>
         )
     }

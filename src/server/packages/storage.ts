@@ -43,9 +43,13 @@ export const get = (pck: string, version: string): Package => {
     return storage[pck][version];
 };
 
-export const getLatest = (pck: string): Package => {
+export const getLatest = (pck: string, version?: string): Package => {
     if (!hasPackage(pck)) {
         return null;
+    }
+
+    if (version) {
+        return storage[pck][version];
     }
 
     return storage[pck][Object.keys(storage[pck])[0]];

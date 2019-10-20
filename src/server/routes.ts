@@ -4,8 +4,9 @@ import {Package} from "./packages/package";
 
 const router = Router();
 
-router.get('/api/packages/:name', async (request: Request, response: Response) => {
+router.get('/api/packages/:name/:version?', async (request: Request, response: Response) => {
     const name = request.params.name;
+    const version = request.params.version || null;
 
     if (!name) {
         response.status(400).json({
@@ -13,7 +14,7 @@ router.get('/api/packages/:name', async (request: Request, response: Response) =
         });
     }
 
-    fetch(name)
+    fetch(name, version)
         .then((pck: Package) => {
             response.status(200).json({
                 name: pck.name,

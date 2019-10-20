@@ -35,7 +35,8 @@ class Form extends React.Component<IFormProps, IFormState> {
     fetchPackageInfo = async (name: string) => {
         try {
             let response = await fetch(`/api/packages/${name}`);
-            let pck = await response.json();
+
+            const pck = await response.json();
 
             if (response.status === 200) {
                 this.props.onFetchHandler(pck);

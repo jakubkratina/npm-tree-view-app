@@ -6,3 +6,7 @@ export interface Package {
         [name: string]: string
     }
 }
+
+export interface Dependencies {
+    [name: string]: string
+}

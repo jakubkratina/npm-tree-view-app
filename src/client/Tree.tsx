@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Package} from "../server/packages/package";
+import Dependency from "./Dependency";
 
 class Tree extends React.Component<ITreeProps, ITreeState> {
 
@@ -9,27 +10,16 @@ class Tree extends React.Component<ITreeProps, ITreeState> {
         this.state = {
             pck: props.pck,
         };
-
     }
+
+    version = (name: string): string => this.props.pck.dependencies[name]
 
     render() {
         return (
-            <>
-                <h2>{this.state.pck.name}</h2>
-                <em>{this.state.pck.version}</em>
-
-                <ul>
-                    {Object.keys(this.props.pck.dependencies).map((name: string) => {
-                        return (<li key={name}>{name}: {this.props.pck.dependencies[name]}</li>)
-                    })}
-
-                    {/*
-                    The tree part here instead of the <li>.
-                     <Package pck={...}>, inside each dependency a fetch
-                     part to fetch dependencies etc. recursively
-                */}
-                </ul>
-            </>
+            <ul>
+                {Object.keys(this.props.pck.dependencies)
+                    .map(name => <Dependency key={name} name={name} version={this.version(name)}/>)}
+            </ul>
         )
     }
 }
